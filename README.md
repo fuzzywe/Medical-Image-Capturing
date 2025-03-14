@@ -33,6 +33,11 @@ Image processing is used to extract meaningful information from images. Some com
 - **Noise Cancelling**
 - **Scientific Imaging**
 
+![Qc](https://github.com/user-attachments/assets/79b71ca6-a44a-40c4-807e-c59fdebff08c)
+
+![mi](https://github.com/user-attachments/assets/f2a663cc-fac5-419f-9abb-010a5636f9f1)
+
+
 ### Common Image Processing Applications
 
 - **Computer Vision**: Automatic interpretation of images, used in self-driving cars, facial recognition, and medical image analysis.
