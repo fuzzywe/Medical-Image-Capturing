@@ -289,5 +289,4 @@ UART is not suitable for real-time processing due to its slow speed. Protocols l
 
 ---
 
-**Note**: Replace `FigureX.png` with the actual image file names or links to the images.
 
