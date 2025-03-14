@@ -1,137 +1,108 @@
 # Medical-Image-Capturing
 
-
-
 ## Table of Contents
 1. [Introduction](#introduction)
-2. [Image processing](#Image-processing)
-3. [FPGA](#FPGA)
-4. [Solution](#Solution)
-5. [Technology](#Technology)
+2. [Image Processing](#image-processing)
+3. [FPGA](#fpga)
+4. [Solution](#solution)
+5. [Technology](#technology)
 6. [Links](#links)
 
-
 ## Introduction
+Image processing is used to extract useful information from images. This information can be used for various purposes, such as object recognition, space exploration, medical diagnosis, and quality control. 
 
-The image processing is used to extract useful information from images. This information can be used for a variety of purposes, such as object recognition,space explotation, medical diagnosis, and quality control.Due to GPUs and CPUs are general purpose processers  parallelism is limited. GPUs and CPUs typically have latency  because they have to fetch instructions and data from memory, which can add a significant delay.ASIC is not reprogramble so new a update must done with new chip implementation.So to overcome that problems FPGAs are better choice for image processing applications. They offer better performance by highly parallelism, lower latency, lower power consumption, and easier programming.So the goal of the project is implement a simple image processing system in a FPGA.
+GPUs and CPUs are general-purpose processors, so their parallelism is limited. They also have latency because they need to fetch instructions and data from memory, causing delays. ASICs, on the other hand, are not reprogrammable, so updates require a new chip implementation. To overcome these limitations, FPGAs are a better choice for image processing applications. They offer:
 
-## Image processing
+- Higher parallelism
+- Lower latency
+- Lower power consumption
+- Easier programming
 
-Image processing used to extract useful information from images.This information can be used for a variety of purposes:
-				
-    				object recorgnizing
-				Medical imaging
-				Quality control
-				Space exploration
-  				Multimedia
-				Image restoration
-				Image enchance
-				Noice cancelling
-				Scientafic images
+The goal of this project is to implement a simple image processing system on an FPGA.
 
-![Qc](./images/Qc.png) 
-Quality control
+## Image Processing
+Image processing is used to extract meaningful information from images. Some common applications include:
 
-![mi](./images/mi.jpg)
-Medical imaging
+- **Object Recognition**
+- **Medical Imaging**
+- **Quality Control**
+- **Space Exploration**
+- **Multimedia Processing**
+- **Image Restoration**
+- **Image Enhancement**
+- **Noise Cancelling**
+- **Scientific Imaging**
 
-## Some of the most common image processing applications include:
+### Common Image Processing Applications
 
-Computer vision: 
-This is the field of artificial intelligence that deals with the automatic interpretation of images. Computer vision techniques are used in a wide variety of applications, such as self-driving cars, facial recognition, and medical image analysis.
+- **Computer Vision**: Automatic interpretation of images, used in self-driving cars, facial recognition, and medical image analysis.
+- **Medical Imaging**: Enhancing the quality of medical images (X-rays, MRI scans, ultrasound) for better diagnosis.
+- **Quality Control**: Inspecting products for defects using automated scanning.
+- **Multimedia**: Enhancing videos and images by noise reduction, sharpening, and color adjustments.
 
-Medical imaging: 
-Image processing techniques are used to improve the quality of medical images, such as X-rays, MRI scans, and ultrasound images. This can help doctors to diagnose diseases more accurately.
+### Levels of Image Processing
+1. **Low Level**: Input and output are both images (e.g., noise reduction, contrast enhancement).
+2. **Mid Level**: Input is an image, and output is extracted attributes (e.g., edge detection, segmentation).
+3. **High Level**: Computer vision, making sense of recognized objects using AI.
 
-Quality control: 
-Image processing techniques are used to inspect products for defects. This is done by automatically scanning the images of products for any abnormalities.
+### Image Processing Techniques
+- **Noise Removal**: Eliminates unwanted noise such as Gaussian or salt-and-pepper noise.
+- **Sharpening**: Improves image clarity by increasing contrast between adjacent pixels.
+- **Contrast Enhancement**: Adjusts contrast for better visibility.
+- **Edge Detection**: Identifies edges in an image.
+- **Object Segmentation**: Divides an image into separate objects.
+- **Shape Analysis**: Extracts object shapes from an image.
+- **Color Manipulation**: Modifies image colors.
+- **Image Compression**: Reduces image size while maintaining quality.
+- **Image Restoration**: Restores corrupted images.
 
-Multimedia: 
-Image processing techniques are used to enhance the quality of multimedia content, such as videos and images. This can be done by removing noise, sharpening the images, and adjusting the colors
+### Benefits of Image Processing
+- Enhances image quality by removing noise and improving contrast.
+- Extracts valuable information like object locations and scene characteristics.
+- Automates manual tasks such as classification and object detection.
+- Powers new applications in virtual and augmented reality.
 
-## Image processing three different levels :
+## FPGA (Field Programmable Gate Array)
+FPGAs are integrated circuits designed to be configured after manufacturing. FPGA configurations are typically specified using hardware description languages (HDLs).
 
-Low level: 
-	Image processing(input and output is an image)
-		
-Mid level: 
-	Image analysis(input is an image and the output is attributes extact from the image)
+### FPGA Features
+- Contains an array of programmable logic blocks.
+- Includes reconfigurable interconnects for wiring logic blocks.
+- Supports complex combinational functions and simple logic gates.
+- Can include memory elements like flip-flops or memory blocks.
+- Allows flexible reconfiguration for various logic functions.
 
-High level:
-	Computer vission(making sense of recognized objects(AI))
+### Advantages of FPGAs
+- **Flexibility**: Can be reprogrammed for different logic functions.
+- **Performance**: Operates at high clock speeds for intensive computations.
+- **Power Efficiency**: Consumes less power, suitable for battery-powered applications.
+- **Cost-Effective**: More affordable than ASICs in certain applications.
 
-
-## Image processing techniques:
-
-Noise removal: This involves removing unwanted noise from an image, such as Gaussian noise or salt and pepper noise.
-Sharpening: This involves improving the clarity of an image by increasing the contrast between adjacent pixels.
-Contrast enhancement: This involves adjusting the contrast of an image to make it easier to see.
-Edge detection: This involves identifying the edges in an image.
-Object segmentation: This involves dividing an image into different objects.
-Shape analysis: This involves extracting the shape of objects in an image.
-Color manipulation: This involves changing the color of an image.
-Image compression: This involves reducing the size of an image without losing too much information.
-Image restoration: This involves restoring an image that has been corrupted by noise or other artifacts.
-
-## Benefits of image processing:
-
-It can be used to improve the quality of images, such as by removing noise or enhancing the contrast.
-It can be used to extract useful information from images, such as the location of objects or the characteristics of a scene.
-It can be used to automate tasks that are currently done manually, such as image classification or object detection.
-It can be used to create new applications, such as virtual reality or augmented reality.
-
-Image processing is a powerful tool that can be used to solve a wide variety of problems. As the field continues to grow, we can expect to see even more innovative applications of image processing in the future.
-
-## FPGA-(Field Programmable Gate Array)
-
-FPGA is an integrated circuit designed to be configured after manufacturing. The FPGA configuration is generally specified using a hardware description language (HDL).
-FPGAs contain an array of programmable logic blocks, and a hierarchy of reconfigurable interconnects allowing blocks to be wired together. Logic blocks can be configured to perform complex combinational functions, or act as simple logic gates like AND and XOR. In most FPGAs, logic blocks also include memory elements, which may be simple flip-flops or more complete blocks of memory. Many FPGAs can be reprogrammed to implement different logic functions, allowing flexible reconfigurable computing as performed in computer software.
-
-## Advantages of FPGAs over other types of integrated circuits :
-
-Flexibility:
-FPGAs can be reconfigured to implement different logic functions, making them ideal for applications that require a high degree of flexibility.
-
-Performance:
-FPGAs can be clocked at very high frequencies, making them ideal for applications that require high performance.
-Power efficiency: FPGAs can be very power efficient, making them ideal for battery-powered applications.
-
-Cost:
-FPGAs can be relatively inexpensive, making them a cost-effective solution for many applications.
-
-## Disadvantages:
-Complexity: 
-FPGAs can be complex to design and program, which can limit their adoption by some users.
-
-Cost:
-FPGAs can be more expensive than other types of integrated circuits, such as application-specific integrated circuits (ASICs).
-
-Time to market:
-FPGAs can take longer to bring to market than ASICs, which can be a disadvantage for some applications.
-
-Overall, FPGAs are a powerful and versatile type of integrated circuit that can be used in a wide variety of applications. They offer a number of advantages over other types of integrated circuits, but they also have some disadvantages. The best choice of integrated circuit for a particular application will depend on the specific requirements of that application.
+### Disadvantages of FPGAs
+- **Complexity**: Requires expertise in HDL programming and design.
+- **Higher Cost**: Can be more expensive than standard ICs.
+- **Time to Market**: FPGA-based solutions take longer to develop than ASICs.
 
 ## Solution
-To overcome the problems occur when using CPUs and GPUs to image processing as like as limited parallalism , latency, hard programming and energy consumption using a suitable FPGA to do calclulations for analysings and operations. Image converted to  matrix using python in computer and the matrix sent to the progeammed FPGA.FPGA Programme using HDL verilog.Then the matrix  manupiulation is done in the FPGA and the resault return to the computer.First goal to do law level image processing to gray images.Then improve for the colour images.
+To overcome the limitations of CPUs and GPUs in image processing (such as limited parallelism, latency, complex programming, and high energy consumption), we use an FPGA for computations. The image is converted into a matrix using Python and then sent to the programmed FPGA. The FPGA processes the matrix and returns the results to the computer.
 
-![Pro](./images/Pro.png)
-Data Flow
+### Implementation Steps
+1. Convert an image into a matrix using Python.
+2. Send the matrix to the FPGA.
+3. Process the matrix using Verilog-based HDL programming.
+4. Return the processed results to the computer.
+5. Begin with low-level image processing (grayscale images) and extend to color images.
 
-## Technology
-Verilog, 
-system verilog,
-OpenCV,
-numpy,
-python,
-Xlinux Vivado or Altera Quartus
+### Data Flow
+![Data Flow](https://github.com/user-attachments/assets/b0f0dcda-0b43-49d1-8041-965a935a5ba2)
+
+## Technology Stack
+- **Verilog**
+- **System Verilog**
+- **OpenCV**
+- **NumPy**
+- **Python**
+- **Xilinx Vivado or Altera Quartus**
 
 ## Links
-
-- [Project Repository](https://github.com/cepdnaclk/{{ page.repository-name }}){:target="_blank"}
-- [Project Page](https://cepdnaclk.github.io/{{ page.repository-name}}){:target="_blank"}
-- [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
-- [University of Peradeniya](https://eng.pdn.ac.lk/)
-
-
-[//]: # (Please refer this to learn more about Markdown syntax)
-[//]: # (https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+- Add relevant links here for documentation, code repository, and references.
