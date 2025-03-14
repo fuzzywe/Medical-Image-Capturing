@@ -110,41 +110,184 @@ To overcome the limitations of CPUs and GPUs in image processing (such as limite
 - **Xilinx Vivado or Altera Quartus**
 # IMAGE CAPTURING AND ANALYSING SYSTEM USING FPGA
 
-# Developing image capturing and analysing system using FPGA
+
+# IMAGE CAPTURING AND ANALYSING SYSTEM USING FPGA
+
+**Group Members:**
+- EKANAYAKEE.M.M.U.B. (E/17/083)
+- WEERASINGHE W.A.C.J. (E/19/423)
+- GROUP 23
 
 ---
 
-<!-- 
-This is a sample image, to show how to add images to your page. To learn more options, please refer [this](https://projects.ce.pdn.ac.lk/docs/faq/how-to-add-an-image/)
+## INTRODUCTION
 
-![Sample Image](./images/sample.png)
- -->
+Image Processing is a multidisciplinary field that involves the analyzing and manipulation of digital images using computer algorithms. Image processing is used in many fields like medicine, agriculture, archeology, motor traffic control, aerospace investigations, scientific researches, etc. Hardware devices like CPU (Central Processing Unit), GPU (Graphical Processing Unit), FPGA (Field Programmable Gate Array), and ASIC (Application Specific Integrated Circuit) are vastly used for Image Processing. Among them, FPGA is very popular in the industries since it comes with features like customizability, real-time processing, parallel processing, energy efficiency, etc.
 
+In this project, we are applying two simple image processing algorithms: **Averaging Filter** and **Median Filter**.
 
-## Table of Contents
-1. [Introduction](#introduction)
-2. [Image processing](#Image-processing)
-3. [FPGA](#FPGA)
-4. [Solution](#Solution)
-5. [Technology](#Technology)
-6. [Links](#links)
+---
+
+## TECHNOLOGY STACK
+
+### Hardware Components
+![image](https://github.com/user-attachments/assets/74b83288-86f3-445d-947a-b41b0be58c7b)
 
 
-## Introduction
+### Software Tools and Languages
 
-The image processing is used to extract useful information from images. This information can be used for a variety of purposes, such as object recognition,space explotation, medical diagnosis, and quality control.Due to GPUs and CPUs are general purpose processers  parallelism is limited. GPUs and CPUs typically have latency  because they have to fetch instructions and data from memory, which can add a significant delay.ASIC is not reprogramble so new a update must done with new chip implementation.So to overcome that problems FPGAs are better choice for image processing applications. They offer better performance by highly parallelism, lower latency, lower power consumption, and easier programming.So the goal of the project is implement a simple image processing system in a FPGA.
+![image](https://github.com/user-attachments/assets/987cdfe7-739e-452e-b0b9-d97b0ae363a4)
 
-## Image processing
 
-Image processing used to extract useful information from images.This information can be used for a variety of purposes:
-				
-    				object recorgnizing
-				Medical imaging
-				Quality control
-				Space exploration
-  				Multimedia
-				Image restoration
-				Image enchance
-				Noice cancelling
-				Scientafic images
+### Reasons for Technology Selection
+
+- **FPGA Board**: We used the Altera Terasic DE2-115 because it was the only FPGA board available in our faculty. It comes with a Cyclone IV FPGA module and meets our requirements, including:
+  - 3,888 KB embedded memory
+  - 4 general-purpose PLLs
+  - 40 GPIO pins (3.3V)
+  - 50 kHz oscillation clock
+
+- **TTL Converter**: Used to convert USB data to UART serial data. Jumper wires are used to connect the TTL converter to the FPGA (RX and TX).
+
+- **SystemVerilog**: Used because it supports packed arrays in RTL and classes for verification purposes, making it a good HDL choice.
+
+- **Verilog**: Used to wrap SystemVerilog modules to avoid multidimensional torques.
+
+- **Python**: Simple and easy for scripting, with support for libraries like OpenCV, Numpy, PySerial, and Math.
+
+---
+
+## PROCEDURE
+
+1. **Design Initial Block Diagram**: The circuit includes a filter module, UART to AXIS receiver, and AXIS to UART transmitter modules. A Skid buffer is added to handle potential backpressure of data from the UART to AXIS transmitter module.
+
+![image](https://github.com/user-attachments/assets/1f54c362-9178-4236-826f-497053f6b62a)
+
+2. **Design Algorithms**:
+   - **Averaging Filter**: Uses an addition tree method to add numbers in the filter kernel.
+   - **Median Filter**: Uses a bitonic sort method to sort elements in the filter kernel. Both methods support parallel processing, which is crucial for image processing.
+
+3. **Design State Machines**:
+   - State Machine for Skid Buffer
+   - State Machine for UART to AXIS Converter
+   - State Machine for AXIS to UART Converter
+![image](https://github.com/user-attachments/assets/74930cea-a330-4314-ab8c-01fa5302e8e0)
+
+![image](https://github.com/user-attachments/assets/304e6d02-7299-4df5-937c-153a986ea697)
+
+4. **Write RTL in SystemVerilog**: Write RTL for individual modules with testbenches and simulate them.
+
+5. **Wrap Modules in Verilog**: Wrap all modules using Verilog and simulate them. Below are the waveform graphs obtained from the filters:
+
+ ![image](https://github.com/user-attachments/assets/6f4be09d-b219-410e-aa11-c4ffeb3e42bf)
+![image](https://github.com/user-attachments/assets/6b802d87-8168-4e6a-834e-7743b032ad59)
+
+
+6. **Create FPGA Project**:
+   - Open Quartus Prime Lite.
+   - Create a new project using the project wizard.
+   - Import RTLs and compile them.
+   - Select the Cyclone IV E family and device EP4CE115F29C7N.
+![image](https://github.com/user-attachments/assets/c176a91e-2d93-414f-98d2-07a90332949f)
+
+7. **Generate PLL**:
+   - Search for PLL (Phase Locked Loop) in the IP catalog.
+   - Create a PLL with an input of 50 MHz and an output of 1000 MHz.
+   - Generate the PLL Verilog file and import it into the `fpga_module.sv` module.
+
+![image](https://github.com/user-attachments/assets/e018c4a6-b2b1-45d6-b324-07ba00691f89)
+
+
+8. **Assign GPIO Pins**:
+   - Assign GPIO pins to the RX and TX ports of the filter module using the "Pin Planner."
+   - Upload the firmware to the FPGA board.
+
+9. **Connect TTL Converter**:
+   - Connect the TTL converter to the FPGA board using jumper wires.
+
+![image](https://github.com/user-attachments/assets/f061d205-3825-4bab-80fa-00de0f8f0a6b)
+
+
+10. **Design Python Algorithm**:
+    - Design an algorithm to read image data, send it to the FPGA, receive the output, and convert it back to an image.
+![image](https://github.com/user-attachments/assets/29f16277-0256-422e-8db1-5ad147b16a8b)
+
+
+11. **Run Python Script**:
+    - Connect the TTL converter to USB.
+    - Power up the FPGA.
+    - Run the Python program and observe the output image.
+
+---
+
+## RESULTS
+
+### Input Image (with Salt and Pepper Noise)
+
+![image](https://github.com/user-attachments/assets/75558281-9d05-49b7-8f5f-d05c026c5313)
+
+
+### Output Images
+
+- **Median Filter Output**:
+![image](https://github.com/user-attachments/assets/d6cec3ab-9b39-4d01-b3cf-aba03f8739cd)
+
+
+- **Averaging Filter Output**:
+![image](https://github.com/user-attachments/assets/c4913f7d-c549-4c1b-9a0f-d81100a60c5d)
+
+
+---
+
+## OBSERVATIONS AND CALCULATIONS
+
+We calculated the time taken to process a 430x320 px image (Figure 10):
+
+| Parameter                              | Value               |
+|----------------------------------------|---------------------|
+| Size of a pixel                        | 8 bits              |
+| Number of pixels transmitting per block| 7 x 7 = 49          |
+| Number of bits transmitting per block  | 49 x 8 = 392 bits   |
+| Number of bits receiving per block     | 392 bits            |
+| Baud rate of transmission              | 115,200 bits/second |
+| Time to transmit/receive 1 block       | 392 x 2 / 115,200 = 0.0068 seconds |
+| Pixels per image block                 | 5 x 5 = 25 pixels   |
+| Total number of pixels in the image    | 430 x 320 = 137,600 pixels |
+| Number of image blocks                 | 137,600 / 25 = 5,504 blocks |
+| **Total time to process the image**    | 5,504 x 0.0068 = 37.4272 seconds |
+
+**Observed time for the whole process**: 44.23 seconds
+
+---
+
+## DISCUSSION
+
+The observed time is higher than the calculated time due to:
+- Delays in transmission.
+- Delays in processing (errors in FPGA).
+- Backpressure from the filter module.
+- Delays in the Python code.
+
+UART is not suitable for real-time processing due to its slow speed. Protocols like Ethernet or PCI should be used for real-time processing.
+
+---
+
+## FIGURES
+
+1. Block Diagram
+2. State Machine of Skid Buffer
+3. State Machine of UART to AXIS Converter
+4. State Machine of AXIS to UART Converter
+5. Median Filter Waveform
+6. Averaging Filter Waveform
+7. PLL Flow Chart
+8. Connection Diagram
+9. Python Algorithm Flow
+10. Input Image
+11. Median Filter Output
+12. Averaging Filter Output
+
+---
+
+**Note**: Replace `FigureX.png` with the actual image file names or links to the images.
 
